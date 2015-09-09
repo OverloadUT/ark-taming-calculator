@@ -1,0 +1,17 @@
+{
+  "name": "ark-taming-calculator",
+  "version": "1.0.0",
+  "description": "Calculator for taming dinosaurs in the game ARK: Survival Evolved",
+  "main": "index.js",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Greg \"OverloadUT\" Laabs",
+  "license": "ISC",
+  "devDependencies": {
+    "react-tools": "^0.13.3"
+  }
+}
