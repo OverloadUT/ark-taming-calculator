@@ -55,7 +55,7 @@ var FoodTable = React.createClass({
             rows.push(<FoodRow food={food} dino={self.props.dino} dinoLevel={self.props.dinoLevel} key={key} {...intlData} />);
         });
         return(
-            <table id="FoodTable">
+            <table id="FoodTable" className="u-full-width">
                 <thead><tr><th>Food Type</th><th>Food needed</th><th>Time required</th><th>Drugs needed</th></tr></thead>
                 <tbody>
                     {rows}
@@ -131,27 +131,31 @@ var DinoSelector = React.createClass({
 
         return(
             <form id="DinoSelector">
-                <label>
-                    Dino
-                    <select
-                        id="DinoOptions"
-                        value={this.props.dinoSelected}
-                        ref="dinoSelect"
-                        onChange={this.handleChange}
-                    >
-                        {rows}
-                    </select>
-                </label>
-                <label>
-                    Level
-                    <input
-                        id="DinoLevel"
-                        type="number"
-                        value={this.props.dinoLevel}
-                        ref="dinoLevelInput"
-                        onChange={this.handleChange}
-                    />
-                </label>
+                <div className="row">
+                    <label className="six columns">
+                        Dino
+                        <select
+                            id="DinoOptions"
+                            className="u-full-width"
+                            value={this.props.dinoSelected}
+                            ref="dinoSelect"
+                            onChange={this.handleChange}
+                        >
+                            {rows}
+                        </select>
+                    </label>
+                    <label className="six columns">
+                        Level
+                        <input
+                            id="DinoLevel"
+                            className="u-full-width"
+                            type="number"
+                            value={this.props.dinoLevel}
+                            ref="dinoLevelInput"
+                            onChange={this.handleChange}
+                        />
+                    </label>
+                </div>
             </form>
         );
     }
@@ -177,7 +181,7 @@ var ArkTamingCalculator = React.createClass({
         })[0];
 
         return(
-            <div id="ArkTamingCalculator">
+            <div id="ArkTamingCalculator" className="container">
                 <DinoSelector
                     dinos={this.props.dinos}
                     dinoSelected={this.state.dinoSelected}
