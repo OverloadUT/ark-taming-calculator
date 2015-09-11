@@ -55,7 +55,7 @@ var FoodTable = React.createClass({displayName: "FoodTable",
             rows.push(React.createElement(FoodRow, React.__spread({food: food, dino: self.props.dino, dinoLevel: self.props.dinoLevel, key: key},  intlData)));
         });
         return(
-            React.createElement("table", {id: "FoodTable"}, 
+            React.createElement("table", {id: "FoodTable", className: "u-full-width"}, 
                 React.createElement("thead", null, React.createElement("tr", null, React.createElement("th", null, "Food Type"), React.createElement("th", null, "Food needed"), React.createElement("th", null, "Time required"), React.createElement("th", null, "Drugs needed"))), 
                 React.createElement("tbody", null, 
                     rows
@@ -131,25 +131,29 @@ var DinoSelector = React.createClass({displayName: "DinoSelector",
 
         return(
             React.createElement("form", {id: "DinoSelector"}, 
-                React.createElement("label", null, 
-                    "Dino", 
-                    React.createElement("select", {
-                        id: "DinoOptions", 
-                        value: this.props.dinoSelected, 
-                        ref: "dinoSelect", 
-                        onChange: this.handleChange
-                    }, 
-                        rows
-                    )
-                ), 
-                React.createElement("label", null, 
-                    "Level", 
-                    React.createElement("input", {
-                        id: "DinoLevel", 
-                        type: "number", 
-                        value: this.props.dinoLevel, 
-                        ref: "dinoLevelInput", 
-                        onChange: this.handleChange}
+                React.createElement("div", {className: "row"}, 
+                    React.createElement("label", {className: "six columns"}, 
+                        "Dino", 
+                        React.createElement("select", {
+                            id: "DinoOptions", 
+                            className: "u-full-width", 
+                            value: this.props.dinoSelected, 
+                            ref: "dinoSelect", 
+                            onChange: this.handleChange
+                        }, 
+                            rows
+                        )
+                    ), 
+                    React.createElement("label", {className: "six columns"}, 
+                        "Level", 
+                        React.createElement("input", {
+                            id: "DinoLevel", 
+                            className: "u-full-width", 
+                            type: "number", 
+                            value: this.props.dinoLevel, 
+                            ref: "dinoLevelInput", 
+                            onChange: this.handleChange}
+                        )
                     )
                 )
             )
@@ -177,7 +181,7 @@ var ArkTamingCalculator = React.createClass({displayName: "ArkTamingCalculator",
         })[0];
 
         return(
-            React.createElement("div", {id: "ArkTamingCalculator"}, 
+            React.createElement("div", {id: "ArkTamingCalculator", className: "container"}, 
                 React.createElement(DinoSelector, {
                     dinos: this.props.dinos, 
                     dinoSelected: this.state.dinoSelected, 
