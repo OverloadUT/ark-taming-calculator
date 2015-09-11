@@ -13,5 +13,9 @@
   "license": "ISC",
   "devDependencies": {
     "react-tools": "^0.13.3"
+  },
+  "dependencies": {
+    "react": "^0.13.3",
+    "react-intl": "^1.2.0"
   }
 }
