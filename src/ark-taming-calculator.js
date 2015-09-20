@@ -52,7 +52,11 @@ var FoodTable = React.createClass({
         var rows = [];
         var self = this;
         this.props.foodOptions.forEach(function(food, key) {
-            rows.push(<FoodRow food={food} dino={self.props.dino} dinoLevel={self.props.dinoLevel} key={key} {...intlData} />);
+            food.diets.forEach(function(diet) {
+                if(diet == self.props.dino.diet) {
+                    rows.push(<FoodRow food={food} dino={self.props.dino} dinoLevel={self.props.dinoLevel} key={key} {...intlData} />);
+                }
+            });
         });
         return(
             <table id="FoodTable" className="u-full-width">
@@ -93,6 +97,44 @@ var DrugInfo = React.createClass({
                 <div>Drugs needed: <span>1 Narcotic / {narcoticsRate} seconds</span>, <span>1 Narcoberry / {narcoberriesRate} seconds</span></div>
             </div>
         );
+    }
+});
+
+var TamingGraph = React.createClass({
+    render: function() {
+        return(
+            <div><canvas id="myChart" width="400" height="400"></canvas></div>
+        );
+    },
+    componentDidMount: function() {
+        var config = {
+            data: {
+                labels: ["January", "February", "March", "April", "May", "June", "July"], datasets: [{
+                    label               : "My First dataset",
+                    fillColor           : "rgba(220,220,220,0.2)",
+                    strokeColor         : "rgba(220,220,220,1)",
+                    pointColor          : "rgba(220,220,220,1)",
+                    pointStrokeColor    : "#fff",
+                    pointHighlightFill  : "#fff",
+                    pointHighlightStroke: "rgba(220,220,220,1)",
+                    data                : [65, 59, 80, 81, 56, 55, 40]
+                }, {
+                    label               : "My Second dataset",
+                    fillColor           : "rgba(151,187,205,0.2)",
+                    strokeColor         : "rgba(151,187,205,1)",
+                    pointColor          : "rgba(151,187,205,1)",
+                    pointStrokeColor    : "#fff",
+                    pointHighlightFill  : "#fff",
+                    pointHighlightStroke: "rgba(151,187,205,1)",
+                    data                : [28, 48, 40, 19, 86, 27, 90]
+                }]
+            },
+            options: {}
+        };
+
+        var ctx = $("#myChart").get(0).getContext("2d");
+        var myNewChart = new Chart(ctx).Line(config);
+        console.log(myNewChart);
     }
 });
 
@@ -194,6 +236,12 @@ var ArkTamingCalculator = React.createClass({
                     dinoLevel={this.state.dinoLevel}
                     {...intlData}
                 />
+                <TamingGraph
+                    foodOptions={this.props.foodOptions}
+                    dino={dino}
+                    dinoLevel={this.state.dinoLevel}
+                    {...intlData}
+                />
             </div>
         );
     }
@@ -209,7 +257,8 @@ var DINOS = [
         toporBase: 112.8,
         toporPerLevel: 7.2,
         toporDrainBase: 0.3,
-        toporDrainPerLevel: 0.006
+        toporDrainPerLevel: 0.006,
+        diet: 'carnivore'
     },
     {
         name: 'Dilo',
@@ -220,7 +269,8 @@ var DINOS = [
         toporBase: 70.5,
         toporPerLevel: 4.5,
         toporDrainBase: 0.3,
-        toporDrainPerLevel: 0.006
+        toporDrainPerLevel: 0.006,
+        diet: 'carnivore'
     },
     {
         name: 'Trike',
@@ -231,14 +281,22 @@ var DINOS = [
         toporBase: 235,
         toporPerLevel: 15,
         toporDrainBase: 0.3,
-        toporDrainPerLevel: 0.006
+        toporDrainPerLevel: 0.006,
+        diet: 'herbivore'
     }
 ];
 
 var FOOD = [
-    {name: 'Mejoberry', affinity: 30, hunger: 30},
-    {name: 'Raw Meat', affinity: 50, hunger: 50},
-    {name: 'Kibble', affinity: 400, hunger: 80}
+    {name: 'Crop', affinity: 40, hunger: 40, diets: ['herbivore']},
+    {name: 'Mejoberry', affinity: 30, hunger: 30, diets: ['herbivore']},
+    {name: 'Raw Meat', affinity: 50, hunger: 50, diets: ['carnivore']},
+    {name: 'Cooked Meat', affinity: 25, hunger: 25, diets: ['carnivore']},
+    {name: 'Jerky', affinity: 25, hunger: 25, diets: ['carnivore']},
+    {name: 'Cooked Prime Meat', affinity: 75, hunger: 50, diets: ['carnivore']},
+    {name: 'Prime Jerky', affinity: 75, hunger: 50, diets: ['carnivore']},
+    {name: 'Spoiled Meat', affinity: 100, hunger: 50, diets: ['scavenger']},
+    {name: 'Raw Prime Meat', affinity: 150, hunger: 50, diets: ['carnivore']},
+    {name: 'Kibble', affinity: 400, hunger: 80, diets: ['herbivore', 'carnivore']}
 ];
 
 var intlData = {
